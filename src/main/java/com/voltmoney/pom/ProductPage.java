@@ -1,5 +1,6 @@
 package com.voltmoney.pom;
 
+import com.voltmoney.constant.ProductDetail;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,30 +11,36 @@ import java.util.Map;
 
 public class ProductPage {
     WebDriver driver;
-    private List<Map<String, String>> selectedProducts;
+    private List<Map<ProductDetail, String>> selectedProducts;
     public ProductPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements( driver, this);
         selectedProducts = new LinkedList<>();
     }
 
-    @FindBy(xpath="//*[@class='pricebar']/button") private List<WebElement> addToCartButton;
-    @FindBy(xpath="//span[@class='shopping_cart_badge']") private WebElement shoppingCartBadge;
-    @FindBy(xpath="//a[@class='shopping_cart_link']") private WebElement shoppingCartLink;
-    @FindBy(xpath="//div[@class='inventory_item_desc']") private List<WebElement> productDescription;
-    @FindBy(xpath="//div[@class='inventory_item_price']") private List<WebElement> productPrice;
-    @FindBy(xpath="//div[@class='inventory_item_name ']") private List<WebElement> productName;
+    @FindBy(xpath="//*[@class='pricebar']/button")
+    private List<WebElement> addToCartButton;
+    @FindBy(xpath="//span[@class='shopping_cart_badge']")
+    private WebElement shoppingCartBadge;
+    @FindBy(xpath="//a[@class='shopping_cart_link']")
+    private WebElement shoppingCartLink;
+    @FindBy(xpath="//div[@class='inventory_item_desc']")
+    private List<WebElement> productDescription;
+    @FindBy(xpath="//div[@class='inventory_item_price']")
+    private List<WebElement> productPrice;
+    @FindBy(xpath="//div[@class='inventory_item_name ']")
+    private List<WebElement> productName;
 
     public void clickAddToCartButton(int index) {
         addToCartButton.get(index).click();
         selectedProducts.add(Map.of(
-                "name", productName.get(index).getText(),
-                "description", productDescription.get(index).getText(),
-                "price", productPrice.get(index).getText()
+                ProductDetail.NAME, productName.get(index).getText(),
+                ProductDetail.DESCRIPTION, productDescription.get(index).getText(),
+                ProductDetail.PRICE, productPrice.get(index).getText()
         ));
     }
 
-    public List<Map<String, String>> getListOfProductsAddedInTheCart(){
+    public List<Map<ProductDetail, String>> getListOfProductsAddedInTheCart(){
         return selectedProducts;
     }
 

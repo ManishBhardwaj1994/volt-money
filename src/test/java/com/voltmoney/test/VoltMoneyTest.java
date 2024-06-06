@@ -1,6 +1,7 @@
 package com.voltmoney.test;
 
 import com.voltmoney.constant.Browser;
+import com.voltmoney.constant.ProductDetail;
 import com.voltmoney.constant.Url;
 import com.voltmoney.helper.BrowserFactory;
 import com.voltmoney.pojo.testcase.TestCase;
@@ -15,6 +16,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import java.util.List;
 import java.util.Map;
+
+import static com.voltmoney.constant.Message.*;
 import static com.voltmoney.constant.Url.PRODUCT_PAGE;
 import static com.voltmoney.helper.GsonHelper.getGson;
 
@@ -73,7 +76,7 @@ public class VoltMoneyTest {
         productPage.clickAddToCartButton(0);
         Assert.assertEquals(productPage.getShoppingCartTotal(), "1");
         Assert.assertEquals(productPage.getTextFromAddToCartButton(0), "Remove");
-        List<Map<String, String>> selectedProducts = productPage.getListOfProductsAddedInTheCart();
+        List<Map<ProductDetail, String>> selectedProducts = productPage.getListOfProductsAddedInTheCart();
         System.out.println("User Selected Products: " + getGson().toJson(selectedProducts));
 
         productPage.clickShoppingCartLink();
@@ -85,7 +88,7 @@ public class VoltMoneyTest {
         /**
          * Verify the product details in the cart page, which user added from the product page
          */
-        List<Map<String, String>> cartProductDetails = cartPage.getProductDetails();
+        List<Map<ProductDetail, String>> cartProductDetails = cartPage.getProductDetails();
         // asserting if the product details are same as selected products in the cart.
         Assert.assertEquals(cartProductDetails.size(), selectedProducts.size(), "Number of products do not match.");
         JSONAssert.assertEquals(getGson().toJson(cartProductDetails), getGson().toJson(selectedProducts), true);
@@ -102,16 +105,19 @@ public class VoltMoneyTest {
          * Verify the product details in the checkout overview page
          */
         CheckoutOverviewPage checkoutOverviewPage = new CheckoutOverviewPage(webDriver);
-        List<Map<String, String>> allInventoryProducts = checkoutOverviewPage.getAllInventoryProducts();
+        List<Map<ProductDetail, String>> allInventoryProducts = checkoutOverviewPage.getAllInventoryProducts();
         Assert.assertEquals(allInventoryProducts.size(), selectedProducts.size(), "Number of products do not match.");
         JSONAssert.assertEquals(getGson().toJson(allInventoryProducts), getGson().toJson(selectedProducts), true);
 
         checkoutOverviewPage.verifyShippingInformation();
         checkoutOverviewPage.verifyPaymentInformation();
         Assert.assertEquals(checkoutOverviewPage.getBillingNumber(), "SauceCard #31337", "Billing number not matching.");
-        Assert.assertEquals(checkoutOverviewPage.getDeliveryType(), "Free Pony Express Delivery!", "Delivery type not matching.");
+        Assert.assertEquals(checkoutOverviewPage.getDeliveryType(), EXPRESS_DELIVERY.getMessage(), "Delivery type not matching.");
 
-        double totalPriceBeforeTax = allInventoryProducts.stream().map(product -> product.get("price").replace("$", "")).mapToDouble(Double::parseDouble).sum();
+        double totalPriceBeforeTax = allInventoryProducts
+                .stream()
+                .map(product -> product.get(ProductDetail.PRICE).replace("$", ""))
+                .mapToDouble(Double::parseDouble).sum();
         Assert.assertEquals(totalPriceBeforeTax, checkoutOverviewPage.getTotalBeforeTax(), "Total price before tax does not match.");
         Assert.assertEquals(totalPriceBeforeTax, checkoutOverviewPage.getTotalBeforeTax(), "Total price after tax does not match.");
 
@@ -121,8 +127,8 @@ public class VoltMoneyTest {
          * Verify the order completion
          */
         CheckoutCompletePage checkoutCompletePage = new CheckoutCompletePage(webDriver);
-        Assert.assertEquals(checkoutCompletePage.getThankMessageText(), "Thank you for your order!", "Thanks message does not match.");
-        Assert.assertEquals(checkoutCompletePage.getDispatchMessageText(), "Your order has been dispatched, and will arrive just as fast as the pony can get there!" ,"Order completion message does not match.");
+        Assert.assertEquals(checkoutCompletePage.getThankMessageText(), THANKS.getMessage(), "Thanks message does not match.");
+        Assert.assertEquals(checkoutCompletePage.getDispatchMessageText(), DISPATCHED.getMessage() ,"Order completion message does not match.");
         checkoutCompletePage.clickBackHomeButton();
 
     }

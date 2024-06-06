@@ -1,33 +1,44 @@
 package com.voltmoney.pom;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class CheckoutInformationPage {
-
     WebDriver driver;
 
     public CheckoutInformationPage(WebDriver driver) {
         this.driver=driver;
+
+        PageFactory.initElements( driver, this);
     }
 
-    private By firstNameField = By.id("first-name");
-    private By lastNameField = By.id("last-name");
-    private By postalCodeField = By.id("postal-code");
-    private By cancelButton = By.id("cancel");
-    private By continueButton = By.id("continue");
+    @FindBy(id = "first-name")
+    private WebElement firstNameField;
+    @FindBy(id = "last-name")
+    private WebElement lastNameField;
+    @FindBy(id = "postal-code")
+    private WebElement postalCodeField;
+    @FindBy(id = "cancel")
+    private WebElement cancelButton;
+    @FindBy(id = "continue")
+    private WebElement continueButton;
 
 
     public void enterFirstName(String firstName){
-        driver.findElement(firstNameField).sendKeys(firstName);
+        firstNameField.clear();
+        firstNameField.sendKeys(firstName);
     }
 
     public void enterLastName(String lastName){
-        driver.findElement(lastNameField).sendKeys(lastName);
+        lastNameField.clear();
+        lastNameField.sendKeys(lastName);
     }
 
     public void enterPostalCode(String postalCode){
-        driver.findElement(postalCodeField).sendKeys(postalCode);
+        postalCodeField.clear();
+        postalCodeField.sendKeys(postalCode);
     }
 
     public void fillForm(String firstName, String lastName, String postalCode){
@@ -37,10 +48,10 @@ public class CheckoutInformationPage {
     }
 
     public void clickCancelButton(){
-        driver.findElement(cancelButton).click();
+        cancelButton.click();
     }
 
     public void clickContinueButton(){
-        driver.findElement(continueButton).click();
+        continueButton.click();
     }
 }

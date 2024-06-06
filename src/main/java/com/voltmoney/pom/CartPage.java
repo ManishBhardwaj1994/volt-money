@@ -1,5 +1,6 @@
 package com.voltmoney.pom;
 
+import com.voltmoney.constant.ProductDetail;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -56,17 +57,17 @@ public class CartPage {
         return cartTitle.getText();
     }
 
-    public Map<String, String> getProductDetails(int index) {
-        Map<String, String> productDetails = Map.of(
-                "name", productTitle.get(index).getText(),
-                "description", productDescription.get(index).getText(),
-                "price", productPrice.get(index).getText()
+    public Map<ProductDetail, String> getProductDetails(int index) {
+        Map<ProductDetail, String> productDetails = Map.of(
+                ProductDetail.NAME, productTitle.get(index).getText(),
+                ProductDetail.DESCRIPTION, productDescription.get(index).getText(),
+                ProductDetail.PRICE, productPrice.get(index).getText()
         );
         return productDetails;
     }
 
-    public List<Map<String, String>> getProductDetails() {
-        List<Map<String, String>> productDetails = new LinkedList<>();
+    public List<Map<ProductDetail, String>> getProductDetails() {
+        List<Map<ProductDetail, String>> productDetails = new LinkedList<>();
         for(int i=0; i<productTitle.size(); i++){
             productDetails.add(getProductDetails(i));
         }

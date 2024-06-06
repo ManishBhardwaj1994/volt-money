@@ -1,5 +1,6 @@
 package com.voltmoney.pom;
 
+import com.voltmoney.constant.ProductDetail;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,18 +18,30 @@ public class CheckoutOverviewPage {
         PageFactory.initElements( driver, this);
     }
 
-    @FindBy(className = "inventory_item_name") private List<WebElement> inventoryItemName;
-    @FindBy(className = "inventory_item_desc") private List<WebElement> inventoryItemNameDescription;
-    @FindBy(className = "inventory_item_price") private List<WebElement> inventoryItemNamePrice;
-    @FindBy(xpath = "//div[normalize-space()='Shipping Information:']") private WebElement shippingInformation;
-    @FindBy(xpath = "//div[@class='summary_info']/div[2]") private WebElement billNumber;
-    @FindBy(xpath = "//div[normalize-space()='Shipping Information:']") private WebElement paymentInformation;
-    @FindBy(xpath = "//div[@class='summary_info']/div[4]") private WebElement deliveryType;
-    @FindBy(className = "summary_subtotal_label") private WebElement totalBeforeTax;
-    @FindBy(className = "summary_tax_label") private WebElement tax;
-    @FindBy(className = "summary_total_label") private WebElement totalAfterTax;
-    @FindBy(id = "cancel") private WebElement cancelButton;
-    @FindBy(id = "finish") private WebElement finishButton;
+    @FindBy(className = "inventory_item_name")
+    private List<WebElement> inventoryItemName;
+    @FindBy(className = "inventory_item_desc")
+    private List<WebElement> inventoryItemNameDescription;
+    @FindBy(className = "inventory_item_price")
+    private List<WebElement> inventoryItemNamePrice;
+    @FindBy(xpath = "//div[normalize-space()='Shipping Information:']")
+    private WebElement shippingInformation;
+    @FindBy(xpath = "//div[@class='summary_info']/div[2]")
+    private WebElement billNumber;
+    @FindBy(xpath = "//div[normalize-space()='Shipping Information:']")
+    private WebElement paymentInformation;
+    @FindBy(xpath = "//div[@class='summary_info']/div[4]")
+    private WebElement deliveryType;
+    @FindBy(className = "summary_subtotal_label")
+    private WebElement totalBeforeTax;
+    @FindBy(className = "summary_tax_label")
+    private WebElement tax;
+    @FindBy(className = "summary_total_label")
+    private WebElement totalAfterTax;
+    @FindBy(id = "cancel")
+    private WebElement cancelButton;
+    @FindBy(id = "finish")
+    private WebElement finishButton;
 
     public void clickCancelButton(){
         cancelButton.click();
@@ -38,16 +51,16 @@ public class CheckoutOverviewPage {
         finishButton.click();
     }
 
-    public Map<String, String> getInventoryProduct(int index){
+    public Map<ProductDetail, String> getInventoryProduct(int index){
         return Map.of(
-                "name", inventoryItemName.get(index).getText(),
-                "description", inventoryItemNameDescription.get(index).getText(),
-                "price", inventoryItemNamePrice.get(index).getText()
+                ProductDetail.NAME, inventoryItemName.get(index).getText(),
+                ProductDetail.DESCRIPTION, inventoryItemNameDescription.get(index).getText(),
+                ProductDetail.PRICE, inventoryItemNamePrice.get(index).getText()
         );
     }
 
-    public List<Map<String, String>> getAllInventoryProducts(){
-        List<Map<String, String>> inventoryProducts = new LinkedList<>();
+    public List<Map<ProductDetail, String>> getAllInventoryProducts(){
+        List<Map<ProductDetail, String>> inventoryProducts = new LinkedList<>();
         for(int i=0; i<inventoryItemName.size(); i++){
             inventoryProducts.add(getInventoryProduct(i));
         }

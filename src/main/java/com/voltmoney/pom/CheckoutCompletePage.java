@@ -14,9 +14,12 @@ public class CheckoutCompletePage {
         PageFactory.initElements( driver, this);
     }
 
-    @FindBy(id = "back-to-products") private WebElement backHomeButton;
-    @FindBy(className = "complete-header")  private WebElement thankMessageText;
-    @FindBy(className = "complete-text") private WebElement dispatchMessageText;
+    @FindBy(id = "back-to-products")
+    private WebElement backHomeButton;
+    @FindBy(className = "complete-header")
+    private WebElement thankMessageText;
+    @FindBy(className = "complete-text")
+    private WebElement dispatchMessageText;
 
 
     public void clickBackHomeButton(){

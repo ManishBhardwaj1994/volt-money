@@ -12,6 +12,7 @@ public class BrowserFactory {
             case CHROME:
                 driver = new ChromeDriver();
                 System.setProperty(Driver.CHROME.getDriverType(), System.getProperty("user.dir")+Driver.CHROME.getDriverLocation());
+                driver.manage().window().maximize();
                 break;
             default:
                 System.out.println("Invalid browser name");
