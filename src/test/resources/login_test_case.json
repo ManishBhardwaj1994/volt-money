@@ -1,0 +1,98 @@
+[
+  {
+    "test_id": "TC_001",
+    "test_name": "Test login functionality with valid username and valid password.",
+    "username": "standard_user",
+    "password": "secret_sauce",
+    "result_status": "SUCCESS",
+    "expected_message": "https://www.saucedemo.com/inventory.html"
+  },
+  {
+    "test_id": "TC_002",
+    "test_name": "Test login functionality with locked out username and valid password.",
+    "username": "locked_out_user",
+    "password": "secret_sauce",
+    "result_status": "REJECTED",
+    "expected_message": "Epic sadface: Sorry, this user has been locked out."
+  },
+  {
+    "test_id": "TC_003",
+    "test_name": "Test login functionality with problem_user username and valid password.",
+    "username": "problem_user",
+    "password": "secret_sauce",
+    "result_status": "SUCCESS",
+    "expected_message": "https://www.saucedemo.com/inventory.html"
+  },
+  {
+    "test_id": "TC_004",
+    "test_name": "Test login functionality with performance_glitch_user username and valid password.",
+    "username": "performance_glitch_user",
+    "password": "secret_sauce",
+    "result_status": "SUCCESS",
+    "expected_message": "https://www.saucedemo.com/inventory.html"
+  },
+  {
+    "test_id": "TC_005",
+    "test_name": "Test login functionality with error_user username and valid password.",
+    "username": "error_user",
+    "password": "secret_sauce",
+    "result_status": "SUCCESS",
+    "expected_message": "https://www.saucedemo.com/inventory.html"
+  },
+  {
+    "test_id": "TC_006",
+    "test_name": "Test login functionality with visual_user username and valid password.",
+    "username": "visual_user",
+    "password": "secret_sauce",
+    "result_status": "SUCCESS",
+    "expected_message": "https://www.saucedemo.com/inventory.html"
+  },
+  {
+    "test_id": "TC_007",
+    "test_name": "Test login functionality with invalid username and valid password.",
+    "username": "standard_user1",
+    "password": "secret_sauce",
+    "result_status": "REJECTED",
+    "expected_message": "Epic sadface: Username and password do not match any user in this service"
+  },
+  {
+    "test_id": "TC_008",
+    "test_name": "Test login functionality with valid username and invalid password.",
+    "username": "standard_user",
+    "password": "secret_sauce1",
+    "result_status": "REJECTED",
+    "expected_message": "Epic sadface: Username and password do not match any user in this service"
+  },
+  {
+    "test_id": "TC_009",
+    "test_name": "Test login functionality with invalid username and invalid password.",
+    "username": "standard_user1",
+    "password": "secret_sauce1",
+    "result_status": "REJECTED",
+    "expected_message": "Epic sadface: Username and password do not match any user in this service"
+  },
+  {
+    "test_id": "TC_010",
+    "test_name": "Test login functionality with valid username and empty password.",
+    "username": "standard_user",
+    "password": "",
+    "result_status": "REJECTED",
+    "expected_message": "Epic sadface: Password is required"
+  },
+  {
+    "test_id": "TC_011",
+    "test_name": "Test login functionality with empty username and valid password.",
+    "username": "",
+    "password": "secret_sauce",
+    "result_status": "REJECTED",
+    "expected_message": "Epic sadface: Username is required"
+  },
+  {
+    "test_id": "TC_012",
+    "test_name": "Test login functionality with empty username and empty password.",
+    "username": "",
+    "password": "",
+    "result_status": "REJECTED",
+    "expected_message": "Epic sadface: Username is required"
+  }
+]
